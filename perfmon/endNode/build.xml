@@ -1,0 +1,63 @@
+<project  basedir="." >
+
+    <target name="clean">
+         <delete dir="build" />
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes" includeantruntime="false">
+             <classpath>
+                 <fileset dir="lib">
+                     <include name="**/*.jar"/>
+                </fileset>
+             </classpath>
+        </javac>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="MetricHttpServer" fork="true">
+             <classpath>
+                 <dirset dir="build/classes"/>
+                 <fileset dir="lib">
+                     <include name="**/*.jar"/>
+                </fileset>
+             </classpath>
+        </java>
+    </target>
+
+    <target name="CpuUsageTest" depends="compile">
+        <java classname="CpuUsage"> 
+             <classpath>
+                 <dirset dir="build/classes"/>
+                 <fileset dir="lib">
+                     <include name="**/*.jar"/>
+                </fileset>
+             </classpath>
+        </java>
+    </target>
+
+    <target name="MemUsageTest" depends="compile">
+        <java classname="MemUsage"> 
+             <classpath>
+                 <dirset dir="build/classes"/>
+                 <fileset dir="lib">
+                     <include name="**/*.jar"/>
+                </fileset>
+             </classpath>
+        </java>
+    </target>
+
+    <target name="MetricTest" depends="compile">
+        <java classname="Metric"> 
+             <classpath>
+                 <dirset dir="build/classes"/>
+                 <fileset dir="lib">
+                     <include name="**/*.jar"/>
+                </fileset>
+             </classpath>
+        </java>
+    </target>
+
+</project>
+

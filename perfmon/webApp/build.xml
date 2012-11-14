@@ -1,0 +1,31 @@
+<project  basedir="." >
+
+    <target name="clean">
+         <delete dir="build" />
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"
+              debug="on" debuglevel="lines,source" includeantruntime="false">
+        </javac>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="WebApp" fork="true">
+             <classpath>
+                 <dirset dir="build/classes"/>
+             </classpath>
+        </java>
+    </target>
+
+    <target name="SimpleHttpClientTest" depends="compile">
+        <java classname="SimpleHttpClient" fork="true">
+             <classpath>
+                 <dirset dir="build/classes"/>
+             </classpath>
+        </java>
+    </target>
+
+</project>
+
