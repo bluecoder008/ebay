@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -45,7 +46,7 @@ class MetricHandler implements HttpHandler {
             try {
                 metric = new Metric().getUsage();
             } catch (Exception ex) {
-                metric = null;
+                metric = "";
             }
             respBody.write( metric.getBytes() );
             respBody.close();
