@@ -8,7 +8,13 @@ import org.hyperic.sigar.SigarException;
  */
 public class Metric {
 
+    private String specific = "";
+
     public Metric() {}
+
+    public Metric(String specific) {
+        this.specific = specific;
+    }
 
     String getUsage() throws SigarException {
 
@@ -16,8 +22,14 @@ public class Metric {
 
         try {
             sb.append( "{\n");
-            sb.append( new CpuUsage().getUsage() + ",\n" );
-            sb.append( new MemUsage().getUsage() + "\n" );
+            if ( "".equals(specific) ) {
+                sb.append( new CpuUsage().getUsage() + ",\n" );
+                sb.append( new MemUsage().getUsage() + "\n" );
+            } else if ( "Cpu".equalsIgnoreCase(specific) ) {
+                sb.append( new CpuUsage().getUsage() + ",\n" );
+            } else if ( "Mem".equalsIgnoreCase(specific) ) {
+                sb.append( new MemUsage().getUsage() + "\n" );
+            }
             sb.append( "}\n");
         } catch (SigarException se) {
             return "";

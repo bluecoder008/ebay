@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -39,14 +38,16 @@ class MetricHandler implements HttpHandler {
 
             Headers respHeaders = exchange.getResponseHeaders();
             respHeaders.set("Content-Type", "application/json");
+
+            String resource = Utils.getQueryValue(exchange, "resource");
 	    exchange.sendResponseHeaders(200, 0);
 
             OutputStream respBody = exchange.getResponseBody(); 
             String metric = null;
             try {
-                metric = new Metric().getUsage();
+                metric = new Metric(resource).getUsage();
             } catch (Exception ex) {
-                metric = "";
+                metric = null;
             }
             respBody.write( metric.getBytes() );
             respBody.close();
